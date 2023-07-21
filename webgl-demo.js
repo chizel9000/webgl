@@ -38,11 +38,11 @@ function main() {
     // Vertex shader program
 
     const vsSource = `
-attribute vec4 aVertexPosition;
+attribute vec2 aVertexPosition;
 uniform mat4 uModelViewMatrix;
 uniform mat4 uProjectionMatrix;
 void main() {
-  gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+  gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition,0.0,1.0);
 }
 `;
 
@@ -66,7 +66,7 @@ const vsSource = `
 
 const fsSource = `
   void main() {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
   }
 `;
 
@@ -271,7 +271,7 @@ function loadTexture(gl, url) {
     //const source =  document.createElement('canvas');
   let image = url;//new Image();
   //image.onload = () => {
-     console.log(image);
+    // console.log(image);
     gl.bindTexture(gl.TEXTURE_2D, texture);
     
     gl.texImage2D(
@@ -361,4 +361,5 @@ function updateTexture(gl, texture, video) {
     srcType,
     video,
   );
+  //console.log(video);
 }
