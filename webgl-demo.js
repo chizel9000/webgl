@@ -159,7 +159,7 @@ const buffers = initBuffers(gl);
 // Load texture
  texture = loadTexture(gl, gcanvas);
 // Flip image pixels into the bottom-to-top order that WebGL expects.
-//gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
 
 // Draw the scene

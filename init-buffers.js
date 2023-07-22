@@ -30,8 +30,9 @@ return {
     // operations to from here out.
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   
+    
     // Now create an array of positions for the square.
-    const positions = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
+    const positions = [1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0];//4 sets of (x,y)
     /*
     -1.0, -1.0,
     1.0, 1.0,
@@ -143,10 +144,7 @@ return {
     const textureCoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
   
-    const textureCoordinates = [
-      // Front
-      0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
-    ];
+    const textureCoordinates = [1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0]; //4 sets of (x,y)
     /*
       // Back
       0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
