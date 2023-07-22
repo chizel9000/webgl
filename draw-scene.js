@@ -82,10 +82,9 @@ gl.uniform1i(programInfo.uniformLocations.uSampler, 0);
         
     {
       const offset = 0;
-      const type = gl.UNSIGNED_BYTE;
-      const vertexCount = 6;
+      const vertexCount = 4;
       //gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
-      gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
+      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT,0);
     }
     
    /*

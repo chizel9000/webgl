@@ -2,12 +2,12 @@ function initBuffers(gl) {
     const positionBuffer = initPositionBuffer(gl);
     //const colorBuffer = initColorBuffer(gl);
     const textureCoordBuffer = initTextureBuffer(gl);
-    //const indexBuffer = initIndexBuffer(gl);
+    const indexBuffer = initIndexBuffer(gl);
 
 return {
   position: positionBuffer,
   textureCoord: textureCoordBuffer,
-  //indices: indexBuffer,
+  indices: indexBuffer,
 };
 /*
     return {
@@ -31,16 +31,17 @@ return {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   
     // Now create an array of positions for the square.
-    const positions = [ //[1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
+    const positions = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
+    /*
     -1.0, -1.0,
     1.0, 1.0,
     -1.0, 1.0,
   
     -1.0, -1.0,
     1.0, -1.0,
-    1.0, 1.0,
+    1.0, 1.0
   ];
-  
+  */
     // Now pass the list of positions into WebGL to build the
     // shape. We do this by creating a Float32Array from the
     // JavaScript array, then use it to fill the current buffer.
@@ -92,7 +93,7 @@ return {
       2,
       0,
       2,
-      3, // front
+      3 // front
     ];
     /*
       4,
@@ -144,7 +145,7 @@ return {
   
     const textureCoordinates = [
       // Front
-      0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+      0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
     ];
     /*
       // Back

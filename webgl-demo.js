@@ -36,7 +36,7 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
     // Vertex shader program
-
+/*
     const vsSource = `
 attribute vec2 aVertexPosition;
 uniform mat4 uModelViewMatrix;
@@ -45,7 +45,7 @@ void main() {
   gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition,0.0,1.0);
 }
 `;
-
+*/
 // Vertex shader program
 /*
 const vsSource = `
@@ -55,7 +55,7 @@ const vsSource = `
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
 
-    varying lowp vec4 vColor;
+    varying highp vec2 vTextureCoord;
 
     void main(void) {
       gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
@@ -63,13 +63,27 @@ const vsSource = `
     }
   `;
 */
+const vsSource = `
+    attribute vec4 aVertexPosition;
+    attribute vec2 aTextureCoord;
 
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    varying highp vec2 vTextureCoord;
+
+    void main(void) {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      vTextureCoord = aTextureCoord;
+    }
+  `;
+/*
 const fsSource = `
   void main() {
     gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
   }
 `;
-
+*/
 // Fragment shader program
 /*
 const fsSource = `
@@ -80,6 +94,15 @@ const fsSource = `
     }
   `;
 */
+const fsSource = `
+    varying highp vec2 vTextureCoord;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+      gl_FragColor = texture2D(uSampler, vTextureCoord);
+    }
+  `;
   // Initialize a shader program; this is where all the lighting
 // for the vertices and so forth is established.
 const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
@@ -88,7 +111,7 @@ let texture = initTexture(gl);
 // Collect all the info needed to use the shader program.
 // Look up which attribute our shader program is using
 // for aVertexPosition and look up uniform locations.
-
+/*
 const programInfo = {
   program: shaderProgram,
   attribLocations: {
@@ -99,8 +122,19 @@ const programInfo = {
     modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
   },
 };
-
-
+*/
+const programInfo = {
+  program: shaderProgram,
+  attribLocations: {
+    vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+    textureCoord: gl.getAttribLocation(shaderProgram, "aTextureCoord"),
+  },
+  uniformLocations: {
+    projectionMatrix: gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),
+    modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
+    uSampler: gl.getUniformLocation(shaderProgram, "uSampler"),
+  },
+};
 // Collect all the info needed to use the shader program.
 // Look up which attributes our shader program is using
 // for aVertexPosition, aVertexColor and also
@@ -125,7 +159,7 @@ const buffers = initBuffers(gl);
 // Load texture
  texture = loadTexture(gl, gcanvas);
 // Flip image pixels into the bottom-to-top order that WebGL expects.
-gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+//gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
 
 // Draw the scene
@@ -216,7 +250,7 @@ function initGameCanvas(){
   ctx = canvas.getContext("2d");
 
 }
-let ting = 0; let fuzz = 1; let range = 400;
+let ting = 0; let fuzz = 1; let range = 200;
 function gUpdate(dt){
   ting += fuzz;
  // this.x += fuzz;
@@ -227,7 +261,7 @@ function gUpdate(dt){
 
 function gDraw(ctx){
 
-  ctx.clearRect(0,0,640,480);
+  ctx.clearRect(0,0,600,300);
   ctx.font = "30px Arial";
             ctx.fillStyle = "red";
             ctx.textAlign = "center";
